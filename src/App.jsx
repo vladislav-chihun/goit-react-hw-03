@@ -21,8 +21,7 @@ function App() {
   <h1>Phonebook</h1>
   <ContactForm />
   {/* <SearchBox /> */}
-      {/* <ContactList /> */}
-      {contacts.map((contact)=> (<Contact key={contact.id} name={contact.name} number={contact.number}/>)) }
+      <ContactList contacts={ contacts} />
 </div>
   )
 }
