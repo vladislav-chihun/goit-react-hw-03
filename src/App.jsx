@@ -22,9 +22,13 @@ function App() {
   
   
 
-  const handleCreate = (values) => {
+  const handleCreate = (values,actions) => {
     const newContact = {id:nanoid(), name:values.nameField,number:values.numberField}
     setContacts([...contacts, newContact])
+    actions.resetForm()
+  }
+  const handleDelete = (id) => {
+    setContacts(contacts.filter(contact => contact.id != id))
   }
   const contactSchema = yup.object({
   firstName: yup.string().defined(),
@@ -42,7 +46,7 @@ function App() {
       <h1>Phonebook</h1>
       <ContactForm handleCreate={handleCreate} />
       <SearchBox handleSearch={handleSearch} />
-      <ContactList contacts={filteredContacts} />
+      <ContactList contacts={filteredContacts} handleDelete={handleDelete} />
 </div>
   )
 }
