@@ -1,12 +1,15 @@
 
 import ContactForm from "./components/ContactForm/ContactForm"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import ContactList from "./components/ContactList/ContactList"
 import SearchBox from "./components/SearchBox/SearchBox"
 import { nanoid } from "nanoid"
 import * as yup from 'yup';
 
-
+const contactSchema = yup.object().shape({
+  nameField: yup.string().min(3, "Too short!").max(50, "Too long!").required("Required"),
+  numberField: yup.string().min(3, "Too short!").max(50, "Too long!").required("Required"),
+});
 
 function App() {
   const [contacts, setContacts] = useState([
@@ -21,21 +24,20 @@ function App() {
   };
   
   
+  useEffect(() => {
+    localStorage.setItem("contacts",JSON.stringify(contacts))
+  },[contacts])
 
   const handleCreate = (values,actions) => {
     const newContact = {id:nanoid(), name:values.nameField,number:values.numberField}
     setContacts([...contacts, newContact])
+    localStorage.setItem(newContact)
     actions.resetForm()
   }
   const handleDelete = (id) => {
     setContacts(contacts.filter(contact => contact.id != id))
   }
-  const contactSchema = yup.object({
-  firstName: yup.string().defined(),
-  nickName: yup.string().default('').nullable(),
-  email: yup.string().nullable().email(),
-  birthDate: yup.date().nullable().min(new Date(1900, 0, 1)),
-});
+  
  
 
   const filteredContacts = contacts.filter(contact =>
@@ -44,7 +46,7 @@ function App() {
   return (
     <div>
       <h1>Phonebook</h1>
-      <ContactForm handleCreate={handleCreate} />
+      <ContactForm handleCreate={handleCreate} contactSchema={contactSchema} />
       <SearchBox handleSearch={handleSearch} />
       <ContactList contacts={filteredContacts} handleDelete={handleDelete} />
 </div>
