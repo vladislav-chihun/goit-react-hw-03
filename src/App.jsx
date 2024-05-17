@@ -4,6 +4,7 @@ import { useState } from "react"
 import ContactList from "./components/ContactList/ContactList"
 import SearchBox from "./components/SearchBox/SearchBox"
 import { nanoid } from "nanoid"
+import * as yup from 'yup';
 
 
 
@@ -14,25 +15,34 @@ function App() {
   {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
   {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
   ])
-  const [searchValue, setSearchValue] = useState(contacts)
-  const handleSearch =(values) => {
-    const filteredContacts = contacts.filter(contact => contact.name.toLowerCase().includes(values)) 
-    setSearchValue(filteredContacts)
-  }
-  const handleCreate = (values) => {
-    const newContact = {id:nanoid, nameField:values.name,numberField:values.number}
-    const createNewContact = [...contacts, newContact]
-  }
+  const [searchValue, setSearchValue] = useState("")
+  const handleSearch = (values) => {
+    setSearchValue(values);
+  };
   
+  
+
+  const handleCreate = (values) => {
+    const newContact = {id:nanoid(), name:values.nameField,number:values.numberField}
+    setContacts([...contacts, newContact])
+  }
+  const contactSchema = yup.object({
+  firstName: yup.string().defined(),
+  nickName: yup.string().default('').nullable(),
+  email: yup.string().nullable().email(),
+  birthDate: yup.date().nullable().min(new Date(1900, 0, 1)),
+});
  
 
-  
+  const filteredContacts = contacts.filter(contact =>
+    contact.name.toLowerCase().includes(searchValue.toLowerCase())
+  );
   return (
     <div>
-  <h1>Phonebook</h1>
+      <h1>Phonebook</h1>
       <ContactForm handleCreate={handleCreate} />
       <SearchBox handleSearch={handleSearch} />
-      <ContactList contacts={searchValue} />
+      <ContactList contacts={filteredContacts} />
 </div>
   )
 }
