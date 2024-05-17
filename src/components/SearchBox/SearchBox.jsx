@@ -1,12 +1,11 @@
-import { Field, Formik } from "formik";
-
-export default function SearchBox({handleSearch}) {
+export default function SearchBox({ handleSearch }) {
+    const handleChange = (event) => {
+        handleSearch(event.currentTarget.value)
+    }
     return (
         <>
             <p>Find contacts by name</p>
-            <Formik initialValues={{ searchField: "" }} onSubmit={handleSearch}>
-                <Field type="text" name="searchField"></Field>
-            </Formik>
+            <input type="text" onChange={handleChange} />
         </>
    )
 }
