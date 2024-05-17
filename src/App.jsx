@@ -3,6 +3,7 @@ import ContactForm from "./components/ContactForm/ContactForm"
 import { useState } from "react"
 import ContactList from "./components/ContactList/ContactList"
 import SearchBox from "./components/SearchBox/SearchBox"
+import { nanoid } from "nanoid"
 
 
 
@@ -18,7 +19,10 @@ function App() {
     const filteredContacts = contacts.filter(contact => contact.name.toLowerCase().includes(values)) 
     setSearchValue(filteredContacts)
   }
- 
+  const handleCreate = (values) => {
+    const newContact = {id:nanoid, nameField:values.name,numberField:values.number}
+    const createNewContact = [...contacts, newContact]
+  }
   
  
 
@@ -26,7 +30,7 @@ function App() {
   return (
     <div>
   <h1>Phonebook</h1>
-  <ContactForm />
+      <ContactForm handleCreate={handleCreate} />
       <SearchBox handleSearch={handleSearch} />
       <ContactList contacts={searchValue} />
 </div>

@@ -1,12 +1,12 @@
 import { Field, Form, Formik } from "formik";
 
-export default function ContactForm() {
+export default function ContactForm({handleCreate}) {
     return (
-        <Formik initialValues={{}} onSubmit={()=>{}}>
+        <Formik initialValues={{nameField:"",numbreField:""}} onSubmit={handleCreate}>
             <Form>
-                <Field type="text" name="NameField"></Field>
-                <Field type="text" name="NumberField"></Field>
-                <button name="AddContactField"></button>
+                <Field type="text" name="nameField"></Field>
+                <Field type="text" name="numberField"></Field>
+                <button name="AddContactField">Add contact</button>
             </Form>
         </Formik>
     )
