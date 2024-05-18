@@ -9,12 +9,12 @@ export default function ContactForm({ handleCreate,contactSchema }) {
                 <div className={css.nameContainer}>
                     <label htmlFor="nameField">Name</label>
                     <Field type="text" name="nameField" id="nameField"></Field>
-                    <ErrorMessage name="nameField" className={css.errorMessage} />
+                    <ErrorMessage name="nameField" component="div" className={css.errorMessage} />
                 </div>
                 <div className={css.numberContainer}>
                     <label htmlFor="numberField">Number</label>
                     <Field type="text" name="numberField" id="numberField"></Field>
-                    <ErrorMessage name="numberField" className={css.errorMessage} />
+                    <ErrorMessage name="numberField" component="div" className={css.errorMessage} />
                 </div>
                  
                 <button name="AddContactField" type="submit" className={css.btn}>Add contact</button>
