@@ -8,12 +8,12 @@ export default function ContactForm({ handleCreate,contactSchema }) {
             <Form className={css.form}>
                 <div className={css.nameContainer}>
                     <label htmlFor="nameField">Name</label>
-                    <Field type="text" name="nameField"></Field>
+                    <Field type="text" name="nameField" id="nameField"></Field>
                     <ErrorMessage name="nameField" className={css.errorMessage} />
                 </div>
                 <div className={css.numberContainer}>
                     <label htmlFor="numberField">Number</label>
-                    <Field type="text" name="numberField"></Field>
+                    <Field type="text" name="numberField" id="numberField"></Field>
                     <ErrorMessage name="numberField" className={css.errorMessage} />
                 </div>
                  
